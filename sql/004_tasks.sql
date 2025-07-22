@@ -1,3 +1,4 @@
+USE DATABASE SALES_DATA;
 -- Create a stream on raw users
 CREATE OR REPLACE STREAM users_stream ON TABLE ods.users_clean;
 
