@@ -13,3 +13,10 @@ CREATE OR REPLACE TABLE staging.raw_users (
     name STRING,
     birth_year INT
 );
+
+CREATE OR REPLACE TABLE staging.raw_emp (
+    id INT,
+    name STRING,
+    birth_year INT
+    salary INT
+);
