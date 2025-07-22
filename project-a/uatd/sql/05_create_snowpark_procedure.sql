@@ -11,7 +11,7 @@ import sys
 from snowflake.snowpark.session import Session
 
 def my_func(session):
-    df = session.table("users_clean").filter("age > 30")
+    df = session.table("SALES_DATA.ods.users_clean").filter("age > 30")
     df.show()
     return f"Processed {df.count()} users"
 $$;
