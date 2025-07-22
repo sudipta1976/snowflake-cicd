@@ -1,0 +1,5 @@
+# config.toml
+default_connection_name = "myconnection"
+
+[connections.myconnection]
+# Leave it empty; credentials set securely via environment variables in Actions workflow
