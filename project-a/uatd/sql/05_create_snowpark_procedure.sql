@@ -2,7 +2,7 @@
 CREATE OR REPLACE PROCEDURE SALES_DATA.staging.process_users()
   RETURNS STRING
   LANGUAGE PYTHON
-  RUNTIME_VERSION = '3.8'
+  RUNTIME_VERSION = '3.10'
   PACKAGES = ('snowflake-snowpark-python')
   HANDLER = 'my_func'
 AS
