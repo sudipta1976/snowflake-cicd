@@ -9,5 +9,4 @@ CREATE OR REPLACE TABLE dwh.users_analytics (
     id INT,
     name STRING,
     age INT
-    sal INT
 );
