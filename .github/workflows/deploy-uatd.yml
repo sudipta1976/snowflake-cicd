@@ -24,9 +24,9 @@
             - prod
   env:
   # Define allowed users per environment
-  UATD_USERS: sudipta1976
-  UAT_USERS: sudipta1976
-  PROD_USERS: sudipta1976
+    UATD_USERS: sudipta1976
+    UAT_USERS: sudipta1976
+    PROD_USERS: sudipta1976
 
   jobs:
     deploy-project-a:
