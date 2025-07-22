@@ -14,6 +14,14 @@ on:
         options:
           - project-a
           - project-b
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - uatd
+          - uat
+          - prod
 
 jobs:
   deploy-project-a:
@@ -29,13 +37,19 @@ jobs:
         with:
           default-config-file-path: config/config.toml
 
+      - name: Set environment variables
+        run: |
+          echo "PROJECT=${{ github.event.inputs.project }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+
       - name: Deploy all SQL files to UATD
         env:
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_USER: ${{ secrets.UATD_SF_USER }}
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_PASSWORD: ${{ secrets.UATD_SF_PASSWORD }}
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
         run: |
-          for file in $(ls ./project-a/uatd/sql/*.sql | sort); do
+          echo "Deploying SQL files from ./${PROJECT}/${ENVIRONMENT}/sql/"
+          for file in $(ls ./${PROJECT}/${ENVIRONMENT}/sql/*.sql | sort); do
             echo "Executing $file..."
             snow sql -f "$file"
           done
@@ -53,13 +67,19 @@ jobs:
         with:
           default-config-file-path: config/config.toml
 
+      - name: Set environment variables
+        run: |
+          echo "PROJECT=${{ github.event.inputs.project }}" >> $GITHUB_ENV
+          echo "ENVIRONMENT=${{ github.event.inputs.environment }}" >> $GITHUB_ENV
+
       - name: Deploy all SQL files to UATD
         env:
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_USER: ${{ secrets.UATD_SF_USER }}
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_PASSWORD: ${{ secrets.UATD_SF_PASSWORD }}
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
         run: |
-          for file in $(ls ./project-b/uatd/sql/*.sql | sort); do
+          echo "Deploying SQL files from ./${PROJECT}/${ENVIRONMENT}/sql/"
+          for file in $(ls ./${PROJECT}/${ENVIRONMENT}/sql/*.sql | sort); do
             echo "Executing $file..."
             snow sql -f "$file"
           done
