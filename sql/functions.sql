@@ -1,0 +1,6 @@
+CREATE OR REPLACE FUNCTION calc_age(birth_year INT)
+RETURNS INT
+AS
+$$
+    2025 - birth_year
+$$;

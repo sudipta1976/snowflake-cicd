@@ -1,0 +1,19 @@
+name: Deploy to PROD (Manual)
+on:
+  workflow_dispatch:  # Manual trigger only
+jobs:
+  deploy-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: snowflakedb/snowflake-cli-action@v1.5
+      - name: Deploy SQL to PROD
+        env:
+          SNOWFLAKE_USER: ${{ secrets.PROD_SF_USER }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.PROD_SF_ACCOUNT }}
+          SNOWFLAKE_PRIVATE_KEY_RAW: ${{ secrets.PROD_SF_PRIVATE_KEY_RAW }}
+          PRIVATE_KEY_PASSPHRASE: ${{ secrets.PROD_SF_PASSPHRASE }}
+        run: |
+          snow sql -f ./sql/ddl.sql
+          snow sql -f ./sql/functions.sql
+          snow sql -f ./sql/tasks.sql
