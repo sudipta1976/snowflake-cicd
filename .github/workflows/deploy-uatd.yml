@@ -35,7 +35,7 @@ jobs:
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_PASSWORD: ${{ secrets.UATD_SF_PASSWORD }}
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
         run: |
-          for file in $(ls ./project-a/sql/*.sql | sort); do
+          for file in $(ls ./project-a/uatd/sql/*.sql | sort); do
             echo "Executing $file..."
             snow sql -f "$file"
           done
@@ -59,7 +59,7 @@ jobs:
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_PASSWORD: ${{ secrets.UATD_SF_PASSWORD }}
           SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
         run: |
-          for file in $(ls ./project-b/sql/*.sql | sort); do
+          for file in $(ls ./project-b/uatd/sql/*.sql | sort); do
             echo "Executing $file..."
             snow sql -f "$file"
           done
