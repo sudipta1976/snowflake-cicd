@@ -1,4 +1,4 @@
-name: Deploy to UATD
+name: Deploy to UAT
 
 on:
   pull_request:
