@@ -77,6 +77,8 @@
             SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
           run: |
             echo "Github actor ${{ github.actor }}"
+            echo "Deploying Python files from ./${PROJECT}/${ENVIRONMENT}/sql/"
+            snow sql -q "PUT file://uatd/snowpark/user_proc.py @~/code_stage AUTO_COMPRESS=FALSE;"
             echo "Deploying SQL files from ./${PROJECT}/${ENVIRONMENT}/sql/"
             for file in $(ls ./${PROJECT}/${ENVIRONMENT}/sql/*.sql | sort); do
               echo "Executing $file..."
