@@ -1,21 +1,28 @@
 name: Deploy to UATD
+
 on:
   pull_request:
     branches:
       - develop
+
 jobs:
   deploy-uatd:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: snowflakedb/snowflake-cli-action@v1.5
-      - name: Deploy SQL to UATD
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Snowflake CLI
+        uses: snowflakedb/snowflake-cli-action@v1.5
+
+      - name: Deploy all SQL files to UATD
         env:
           SNOWFLAKE_USER: ${{ secrets.UATD_SF_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.UATD_SF_PASSWORD }}
           SNOWFLAKE_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
-          SNOWFLAKE_PRIVATE_KEY_RAW: ${{ secrets.UATD_SF_PRIVATE_KEY_RAW }}
-          PRIVATE_KEY_PASSPHRASE: ${{ secrets.UATD_SF_PASSPHRASE }}
         run: |
-          snow sql -f ./sql/ddl.sql
-          snow sql -f ./sql/functions.sql
-          snow sql -f ./sql/tasks.sql
+          for file in $(ls ./sql/*.sql | sort); do
+            echo "Executing $file..."
+            snow sql -f "$file"
+          done

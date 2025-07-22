@@ -11,10 +11,9 @@ jobs:
       - uses: snowflakedb/snowflake-cli-action@v1.5
       - name: Deploy SQL to UAT
         env:
-          SNOWFLAKE_USER: ${{ secrets.UAT_SF_USER }}
-          SNOWFLAKE_ACCOUNT: ${{ secrets.UAT_SF_ACCOUNT }}
-          SNOWFLAKE_PRIVATE_KEY_RAW: ${{ secrets.UAT_SF_PRIVATE_KEY_RAW }}
-          PRIVATE_KEY_PASSPHRASE: ${{ secrets.UAT_SF_PASSPHRASE }}
+          SNOWFLAKE_USER: ${{ secrets.UATD_SF_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.UATD_SF_PASSWORD }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.UATD_SF_ACCOUNT }}
         run: |
           snow sql -f ./sql/ddl.sql
           snow sql -f ./sql/functions.sql
