@@ -22,6 +22,11 @@
             - uatd
             - uat
             - prod
+  env:
+  # Define allowed users per environment
+  UATD_USERS: sudipta1976
+  UAT_USERS: sudipta1976
+  PROD_USERS: sudipta1976
 
   jobs:
     deploy-project-a:
@@ -29,6 +34,29 @@
       runs-on: ubuntu-latest
       
       steps:
+        - name: Validate user permissions
+          run: |
+            echo "Actor: ${{ github.actor }}"
+            case "${{ github.event.inputs.environment }}" in
+              uatd)
+                [[ " $UATD_USERS " =~ " ${{ github.actor }} " ]] || {
+                  echo "❌ User ${{ github.actor }} is not allowed to deploy to UATD."
+                  exit 1
+                }
+                ;;
+              uat)
+                [[ " $UAT_USERS " =~ " ${{ github.actor }} " ]] || {
+                  echo "❌ User ${{ github.actor }} is not allowed to deploy to UAT."
+                  exit 1
+                }
+                ;;
+              prod)
+                [[ " $PROD_USERS " =~ " ${{ github.actor }} " ]] || {
+                  echo "❌ User ${{ github.actor }} is not allowed to deploy to PROD."
+                  exit 1
+                }
+                ;;
+            esac
         - name: Checkout repository
           uses: actions/checkout@v4
 
@@ -60,6 +88,29 @@
       runs-on: ubuntu-latest
       
       steps:
+        - name: Validate user permissions
+          run: |
+            echo "Actor: ${{ github.actor }}"
+            case "${{ github.event.inputs.environment }}" in
+              uatd)
+                [[ " $UATD_USERS " =~ " ${{ github.actor }} " ]] || {
+                  echo "❌ User ${{ github.actor }} is not allowed to deploy to UATD."
+                  exit 1
+                }
+                ;;
+              uat)
+                [[ " $UAT_USERS " =~ " ${{ github.actor }} " ]] || {
+                  echo "❌ User ${{ github.actor }} is not allowed to deploy to UAT."
+                  exit 1
+                }
+                ;;
+              prod)
+                [[ " $PROD_USERS " =~ " ${{ github.actor }} " ]] || {
+                  echo "❌ User ${{ github.actor }} is not allowed to deploy to PROD."
+                  exit 1
+                }
+                ;;
+            esac
         - name: Checkout repository
           uses: actions/checkout@v4
 
