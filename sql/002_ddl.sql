@@ -1,3 +1,4 @@
+USE DATABASE SALES_DATA;
 CREATE OR REPLACE TABLE ods.users_clean (
     id INT,
     name STRING,
