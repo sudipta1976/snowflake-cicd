@@ -19,6 +19,6 @@ CREATE OR REPLACE TABLE staging.raw_users (
 CREATE OR REPLACE TABLE staging.raw_emp (
     id INT,
     name STRING,
-    birth_year INT
+    birth_year INT,
     salary INT
 );
