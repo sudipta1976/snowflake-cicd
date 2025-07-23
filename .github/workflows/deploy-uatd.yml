@@ -78,7 +78,7 @@
           run: |
             echo "Github actor ${{ github.actor }}"
             echo "Deploying Python files from ./${PROJECT}/${ENVIRONMENT}/snowpark/"
-            snow sql -q "PUT file:///Users/ssarkar/Documents/Projects/snowflake-cicd/project-a/uatd/snowpark/user_proc.py @~/code_stage AUTO_COMPRESS=FALSE;"
+            snow sql -q "PUT 'file:/Users/ssarkar/Documents/Projects/snowflake-cicd/project-a/uatd/snowpark/user_proc.py' @~/code_stage AUTO_COMPRESS=FALSE;"
             echo "Deploying SQL files from ./${PROJECT}/${ENVIRONMENT}/sql/"
             for file in $(ls ./${PROJECT}/${ENVIRONMENT}/sql/*.sql | sort); do
               echo "Executing $file..."
