@@ -16,7 +16,7 @@ name: FOSSA Scan on Pull Request
 on:
   pull_request:
     branches:
-      - main  # Adjust to your target branch
+      - develop  # Adjust to your target branch
 
 jobs:
   fossa-scan:
