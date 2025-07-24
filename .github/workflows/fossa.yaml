@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: fossa
-        uses: fossas/fossa-action@v1 # Use a specific version if locking is preferred
+        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.FOSSA_API_KEY}}
           run-tests: true
