@@ -1,15 +1,39 @@
+# on:
+#   pull_request:
+  
+# jobs:
+#   fossa-scan:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - id: fossa
+#         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+#         env:
+#           FOSSA_API_KEY: ${{secrets.FOSSA_API_KEY}}
+#           FOSSA_BIN_DIR:
+name: FOSSA Scan on Pull Request
+
 on:
   pull_request:
-  
+    branches:
+      - main  # Adjust to your target branch
+
 jobs:
   fossa-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - id: fossa
-        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
-        with:
-          api-key: ${{secrets.FOSSA_API_KEY}}
-          run-tests: true
-          generate-report: html
-      - run: echo '${{ steps.fossa.outputs.report }}' > report.html
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install FOSSA CLI
+        run: |
+          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash
+          # Ensure FOSSA CLI is in PATH
+          echo "/usr/local/bin" >> $GITHUB_PATH
+
+      - name: Run FOSSA Analyze
+        env:
+          FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
+        run: |
+          cd $GITHUB_WORKSPACE
+          fossa analyze

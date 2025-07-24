@@ -85,6 +85,8 @@
               snow sql -f "$file"
             done
 
+    
+
     deploy-project-b:
       if: ${{ github.event.inputs.project == 'project-b' }}
       runs-on: ubuntu-latest
