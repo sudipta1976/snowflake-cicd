@@ -1,0 +1,2 @@
+-- Deploy notebook from workspace stage to Snowflake
+-- Co-authored with CoCo
